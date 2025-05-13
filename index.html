@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" class="lighttheme">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <script src="/assets/js/script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h2>TODO LIST</h2>
+
+        <div class="top-bar">
+            <!-- Search by task name -->
+            <div class="search-box">
+                <input type="text" id="keywordToSearchInput" placeholder="Search note..." oninput="filterTaskByConditions()"/>
+                <button onclick="searchByKeyword()"><i class="fas fa-search"></i></button>
+            </div>
+            <!-- Filter by task status -->
+            <select id="statusToFilterInput" onchange="filterTaskByConditions()">
+                <option value="all">All</option>
+                <option value="incompleted">Incompleted</option>
+                <option value="completed">Completed</option>
+            </select>
+            <button class="theme-btn" onclick="changeTheme()"><i id="theme-icon" class="fas fa-moon"></i></button>
+        </div>
+
+        <!-- List task -->
+        <ul class="todo-list">
+        </ul>
+
+        <button class="add-btn" onclick="openModal()"><i class="fas fa-plus"></i></button>
+    </div>
+
+    <!-- Modal Background -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h3>NEW NOTE</h3>
+            <input type="text" id="newTaskInput" placeholder="Input your note..."/>
+            <div class="modal-buttons">
+                <button class="btn cancel" onclick="closeModal()">CANCEL</button>
+                <button class="btn apply" onclick="addTask()">APPLY</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
