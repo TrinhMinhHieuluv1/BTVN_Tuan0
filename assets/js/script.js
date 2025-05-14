@@ -1,6 +1,11 @@
+var todoList;
+
 window.onload = function () {
-    todoList = JSON.parse(localStorage.getItem('todoList'));
-     loadTodoList(todoList);
+    if (localStorage.getItem('todoList') != null)
+        todoList = JSON.parse(localStorage.getItem('todoList'));
+    else 
+        todoList = [];
+    loadTodoList(todoList);
 }
 
 function changeTheme() {
@@ -23,7 +28,7 @@ function loadTodoList(list) {
     var todoListElement = document.getElementsByClassName('todo-list')[0];
     todoListElement.innerHTML = '';
     if (list.length === 0) {
-        todoListElement.innerHTML = `<img src='/assets/imgs/NotFound.jpg' style="width: 400px; height: 300px;">`;
+        todoListElement.innerHTML = `<img src='../BTVN-Week0/assets/imgs/NotFound.jpg' style="width: 400px; height: 300px;">`;
         todoListElement.style.textAlign = "center";
     }
     list.forEach(element => {
@@ -36,7 +41,6 @@ function loadTodoList(list) {
           <span class="text">` + element.taskName + `</span>
         </label>
         <div class="actions">
-          <i class="fas fa-pen" onclick="UpdateTask(${element.taskId})"></i>
           <i class="fas fa-trash" onclick="DeleteTask(${element.taskId})"></i>
         </div>`;
         todoListElement.appendChild(li);
@@ -92,7 +96,10 @@ function addTask() {
     if (newTaskName === '') {
         alert("Task name cannot be empty. Try again!");
     } else {
-        var currentLargestId = Math.max(...todoList.map(t => t.taskId));
+        var currentLargestId = 0;
+        if (todoList.length !== 0) {
+            currentLargestId = Math.max(...todoList.map(t => t.taskId));
+        }
         console.log(currentLargestId);
         todoList.push({taskId: currentLargestId + 1, taskName: newTaskName, taskStatus: 0});
     }
